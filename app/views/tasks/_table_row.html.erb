@@ -1,0 +1,31 @@
+<tr class='<%= task.parent? ? 'border-top' : '' %>'>
+  <td class="<%= task.sub_task? ? 'sub_task' : '' %>">
+      <span class="text-<%= task.css_color%>"> <%= task.symbol %> </span>
+      <% if task.done? %>
+        <s class="text-muted"><%= task.description%></s>
+      <% else %>
+        <%= task.description%>
+      <% end %>
+  </td>
+  <td></td>
+  <% if task.done? %>
+    <td><s class="text-muted"><%= l task.due_date %></td></s>
+  <% else %>
+    <td><%= l task.due_date %></td>
+  <% end %>
+  <td class="tabela">
+      <div class="btn-toolbar d-md-flex justify-content-md-end" role="toolbar">
+      <% if !task.sub_task? %>
+        <div class="btn-group me-2" role="group">
+            <%= link_to '+Sub Tarefa', new_task_path(parent_id: task.id),  class: 'btn btn-success'%>
+        </div>
+      <% end %>
+        <div class="btn-group me-2" role="group">
+            <%= link_to 'Editar', edit_task_path(task),  class: 'btn btn-secondary'%>
+        </div>
+        <div class="btn-group me-2" role="group">
+            <%= button_to 'Apagar', task, method: :delete, data:{turbo_confirm:'Você tem certeza que deseja apagar ?'},  class: 'btn btn-danger'%>
+        </div>
+      </div>
+  </td>
+</tr>

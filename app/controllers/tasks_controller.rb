@@ -1,8 +1,9 @@
 class TasksController < ApplicationController
+  include Exportable
   before_action :set_task, only: %i[edit update destroy]
 
   def index
-    @tasks = Task.all
+    @tasks = Task.only_parents.order(:due_date)
   end
 
   def new
@@ -43,6 +44,6 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:description, :due_date, :done)
+    params.require(:task).permit(:description, :due_date, :done, :parent_id)
   end
 end 

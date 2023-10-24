@@ -1,21 +1,22 @@
 <%= form_with(model: task) do |form| %>
+  <%= form.hidden_field :parent_id, value: task.parent_id || params[:parent_id] %>
 
-  <div>
-    <%= form.label :description, style: "display: block" %>
-    <%= form.text_field :description %>
+  <div class="form-group">
+    <%= form.label :description %>
+    <%= form.text_field :description, class: 'form-control' %>
   </div>
 
-  <div>
-    <%= form.label :due_date, style: "display: block" %>
-    <%= form.date_field :due_date %>
+  <div class="form-group col-3">
+    <%= form.label :due_date%>
+    <%= form.date_field :due_date, class: 'form-control' %>
   </div>
 
-  <div>
-    <%= form.label :done, style: "display: block" %>
-    <%= form.check_box :done %>
+  <div class="form-group form-check col-5">
+    <%= form.label :done, class:'form-check-label' %>
+    <%= form.check_box :done, class:'form-check-input', type:'checkbox' %>
   </div>
 
-  <div>
-    <%= form.submit %>
-  </div>
+  <%= form.submit class:'btn btn-success', date: {disable_with: 'Criando...'} %>
+
+  <%= link_to 'Cancelar', tasks_path, class: 'btn btn-secondary'%>
 <% end %>

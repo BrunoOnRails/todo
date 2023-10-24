@@ -1,12 +1,36 @@
-<h1>Tasks</h1>
-
-<div id="tasks">
-  <% @tasks.each do |task| %>
-    <%= render task %>
-    <p>
-      <%= link_to "Show this task", task %>
-    </p>
-  <% end %>
+<div class="row mb-2">
+  <div class="col-9">
+    <h1 class="display-4 margin-bottom-5">Tarefas</h1>
+  </div>
+  <div class="col-3 mt-4">
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end task">
+      <%= link_to '+ Tarefa', new_task_path, class: 'btn btn-success'%>
+      <%= link_to 'Exportar', export_csv_tasks_path, class: 'btn btn-warning'%>
+    </div>
+  </div>
 </div>
 
-<%= link_to "New task", new_task_path %>
+<% if @tasks.any? %>
+  <table class="table table-borderless">
+    <thead>
+      <tr>
+        <th>Descrição</th>
+        <th></th>
+        <th>Prazo</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @tasks.each do |task| %>
+        <%= render 'table_row', task: task %>
+
+        <% task.sub_tasks.order(:due_date).each do |sub_task| %>
+          <%= render 'table_row', task: sub_task %>
+        <% end %>
+
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>Nenhuma tarefa cadastrada</p>
+<% end %>

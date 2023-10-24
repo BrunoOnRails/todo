@@ -1,7 +1,7 @@
 // Entry point for the build script in your package.json
 import "@hotwired/turbo-rails";
 import "./controllers";
-import "@popperjs/core";
+//import "@popperjs/core";
 import * as bootstrap from "bootstrap";
 
 const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
